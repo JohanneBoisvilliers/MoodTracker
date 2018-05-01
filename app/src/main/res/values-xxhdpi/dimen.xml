@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Images -->
+    <dimen name="size_image_heigt">220dp</dimen>
+    <dimen name="size_image_width">@dimen/size_image_heigt</dimen>
+</resources>
