@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
 
 import com.boisvilliers.johanne.moodtracker.R;
+import com.boisvilliers.johanne.moodtracker.vue.LayoutConstructor;
 import com.boisvilliers.johanne.moodtracker.vue.LayoutSmileyHappy;
 import com.boisvilliers.johanne.moodtracker.vue.LayoutSmileySuperHappy;
 
@@ -19,11 +20,10 @@ public class MainActivity extends AppCompatActivity {
 
         mCurrentLinearLayout = findViewById(R.id.mainActivity_global);
 
-        LayoutSmileyHappy layoutSmileyHappy = new LayoutSmileyHappy(this);
-        LayoutSmileySuperHappy layoutSmileySuperHappy = new LayoutSmileySuperHappy(this);
-        mCurrentLinearLayout.addView(layoutSmileyHappy.getLinearLayoutHappy());
-        layoutSmileySuperHappy.getParamsSmileySuperHappy().weight=4;
-        mCurrentLinearLayout.addView(layoutSmileySuperHappy.getLinearLayoutSuperHappy());
+        LayoutConstructor layoutSmileyHappy = new LayoutSmileyHappy(this);
+        LayoutConstructor layoutSmileySuperHappy = new LayoutSmileySuperHappy(this);
+        mCurrentLinearLayout.addView(layoutSmileyHappy.getLinearLayout());
+        mCurrentLinearLayout.addView(layoutSmileySuperHappy.getLinearLayout());
 
 
 
