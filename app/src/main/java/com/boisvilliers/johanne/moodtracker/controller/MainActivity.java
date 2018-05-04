@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private GestureDetectorCompat mDetector;
     private int currentView = 3;
 
+    /*OnTouchEvent get the gestureDirection in GestureDetectorListener and then add or remove 1 to currentView
+     witch contain the index of the current view in Hierarchy View's list.
+    After that, refreshing the view with setContentView.*/
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         this.mDetector.onTouchEvent(event);
@@ -58,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
         constructList(mCurrentLinearLayout);
     }
-
 
     public void constructList(ViewGroup viewGroup){
 
