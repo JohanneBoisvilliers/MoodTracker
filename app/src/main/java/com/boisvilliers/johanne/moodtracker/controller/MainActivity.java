@@ -10,32 +10,41 @@ import android.view.ViewGroup;
 import com.boisvilliers.johanne.moodtracker.R;
 import com.boisvilliers.johanne.moodtracker.model.GestureDetectorListener;
 import com.boisvilliers.johanne.moodtracker.view.LayoutConstructor;
+import com.boisvilliers.johanne.moodtracker.view.LayoutSmileyDissapointed;
 import com.boisvilliers.johanne.moodtracker.view.LayoutSmileyHappy;
+import com.boisvilliers.johanne.moodtracker.view.LayoutSmileyNormal;
+import com.boisvilliers.johanne.moodtracker.view.LayoutSmileySad;
 import com.boisvilliers.johanne.moodtracker.view.LayoutSmileySuperHappy;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewGroup mCurrentLinearLayout;
     private Fade mFade;
     private GestureDetectorCompat mDetector;
-    LayoutConstructor layoutSmileyHappy;
-    LayoutConstructor layoutSmileySuperHappy;
+    private int currentView = 3;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         this.mDetector.onTouchEvent(event);
         char gestureDirection = GestureDetectorListener.getGestureDirection();
         if (gestureDirection =='U'){
-            for(int i=1;i==3;i+=0.1) {
-                layoutSmileySuperHappy.getParamsSmiley().weight = i;
-                setContentView(mCurrentLinearLayout);
+            if(currentView<4){
+                currentView+=1;
+                mCurrentLinearLayout.removeAllViews();
+                constructList(mCurrentLinearLayout);
             }
-        }
-        if (gestureDirection =='D'){
-            layoutSmileySuperHappy.getParamsSmiley().weight = 0.5f;
             setContentView(mCurrentLinearLayout);
         }
-
+        if (gestureDirection =='D'){
+            if(currentView>0){
+                currentView-=1;
+                mCurrentLinearLayout.removeAllViews();
+                constructList(mCurrentLinearLayout);
+            }
+            setContentView(mCurrentLinearLayout);
+        }
         return super.onTouchEvent(event);
     }
 
@@ -47,9 +56,20 @@ public class MainActivity extends AppCompatActivity {
 
         mCurrentLinearLayout =(ViewGroup) findViewById(R.id.mainActivity_global);
 
-        layoutSmileyHappy = new LayoutSmileyHappy(this);
-        layoutSmileySuperHappy = new LayoutSmileySuperHappy(this);
-        mCurrentLinearLayout.addView(layoutSmileyHappy.getLinearLayout());
-        mCurrentLinearLayout.addView(layoutSmileySuperHappy.getLinearLayout());
+        constructList(mCurrentLinearLayout);
+    }
+
+
+    public void constructList(ViewGroup viewGroup){
+
+        ArrayList<LayoutConstructor> listLayout=new ArrayList<LayoutConstructor>();
+
+        listLayout.add(new LayoutSmileySad(getBaseContext()));
+        listLayout.add(new LayoutSmileyDissapointed(getBaseContext()));
+        listLayout.add(new LayoutSmileyNormal(getBaseContext()));
+        listLayout.add(new LayoutSmileyHappy(getBaseContext()));
+        listLayout.add(new LayoutSmileySuperHappy(getBaseContext()));
+
+        viewGroup.addView(listLayout.get(currentView).getLinearLayout());
     }
 }

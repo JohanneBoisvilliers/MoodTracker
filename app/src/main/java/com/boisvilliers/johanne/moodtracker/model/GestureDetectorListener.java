@@ -14,6 +14,7 @@ public class GestureDetectorListener extends GestureDetector.SimpleOnGestureList
 
     @Override
     public boolean onDown(MotionEvent e) {
+        gestureDirection = ' ';
         return super.onDown(e);
     }
 
