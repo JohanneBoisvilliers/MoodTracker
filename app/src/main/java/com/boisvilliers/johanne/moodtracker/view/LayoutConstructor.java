@@ -1,4 +1,4 @@
-package com.boisvilliers.johanne.moodtracker.vue;
+package com.boisvilliers.johanne.moodtracker.view;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -12,7 +12,7 @@ import com.boisvilliers.johanne.moodtracker.R;
 /**
  * Created by Johanne Boisvilliers on 02/05/2018.
  */
-public class LayoutConstructor extends ViewGroup{
+public abstract class LayoutConstructor extends ViewGroup{
 
     protected LinearLayout mLinearLayout;
     protected LinearLayout.LayoutParams mParamsSmiley;
@@ -20,17 +20,15 @@ public class LayoutConstructor extends ViewGroup{
 
     public LayoutConstructor(Context context) {
         super(context);
-
     }
 
     protected void LayoutCreator(int color, int draw) {
-
 
         mLinearLayout = new LinearLayout(getContext());
 
         mParamsSmiley = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
         mParamsSmiley.height=0;
-        mParamsSmiley.weight=1;
+        mParamsSmiley.weight=1f;
 
         mLinearLayout.setLayoutParams(mParamsSmiley);
         mLinearLayout.setGravity(Gravity.CENTER);
@@ -47,6 +45,10 @@ public class LayoutConstructor extends ViewGroup{
 
     public LinearLayout getLinearLayout() {
         return this.mLinearLayout;
+    }
+
+    public LinearLayout.LayoutParams getParamsSmiley() {
+        return mParamsSmiley;
     }
 
     @Override

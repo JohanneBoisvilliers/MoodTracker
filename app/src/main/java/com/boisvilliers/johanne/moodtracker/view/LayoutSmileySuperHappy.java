@@ -1,4 +1,4 @@
-package com.boisvilliers.johanne.moodtracker.vue;
+package com.boisvilliers.johanne.moodtracker.view;
 
 import android.content.Context;
 
