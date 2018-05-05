@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private int currentView = 3;
 
     /*OnTouchEvent get the gestureDirection in GestureDetectorListener and then add or remove 1 to currentView
-     witch contain the index of the current view in Hierarchy View's list.
+     which contain the index of the current view in Hierarchy View's list.
     After that, refreshing the view with setContentView.*/
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         constructList(mCurrentLinearLayout);
     }
-
+    //Method who create the view's hierarchy as list and set initial view
     public void constructList(ViewGroup viewGroup){
 
         ArrayList<LayoutConstructor> listLayout=new ArrayList<LayoutConstructor>();
@@ -72,6 +72,6 @@ public class MainActivity extends AppCompatActivity {
         listLayout.add(new LayoutSmileyHappy(getBaseContext()));
         listLayout.add(new LayoutSmileySuperHappy(getBaseContext()));
 
-        viewGroup.addView(listLayout.get(currentView).getLinearLayout());
+        viewGroup.addView(listLayout.get(currentView).getFrameLayout());
     }
 }
