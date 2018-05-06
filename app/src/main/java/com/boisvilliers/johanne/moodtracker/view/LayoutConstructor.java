@@ -4,8 +4,8 @@ import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.boisvilliers.johanne.moodtracker.R;
@@ -21,9 +21,9 @@ public abstract class LayoutConstructor extends ViewGroup{
     private FrameLayout.LayoutParams mParamSmiley;
     private FrameLayout mFrameLayoutButtons;
     private FrameLayout.LayoutParams mParamsButtons;
-    private Button mAddComments;
+    private ImageButton mAddComments;
     private FrameLayout.LayoutParams mParamsAddComments;
-    private Button mHistoryButton;
+    private ImageButton mHistoryButton;
     private FrameLayout.LayoutParams mParamsHistoryButton;
 
     public LayoutConstructor(Context context) {
@@ -60,21 +60,25 @@ public abstract class LayoutConstructor extends ViewGroup{
                 //Set previous Frame.LayoutParams in mFrameLayoutButtons and set some other parameters
                 mFrameLayoutButtons.setLayoutParams(mParamsButtons);
         //----------Create a first button for a new comment with his parameters
-                    mAddComments = new Button(getContext());
+                    mAddComments = new ImageButton(getContext());
                     mParamsAddComments = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-                    mAddComments.setBackground(getResources().getDrawable(R.drawable.ic_note_add_black));
-                    mAddComments.setWidth((int)getResources().getDimension(R.dimen.size_icone_width_add_com));
-                    mAddComments.setHeight((int)getResources().getDimension(R.dimen.size_icone_heigt_add_com));
+                    mAddComments.setBackground(null);
+                    mAddComments.setImageDrawable(getResources().getDrawable(R.drawable.ic_note_add_black));
+                    mAddComments.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    mParamsAddComments.width=((int)getResources().getDimension(R.dimen.size_icone_width_add_com));
+                    mParamsAddComments.height=((int)getResources().getDimension(R.dimen.size_icone_heigt_add_com));
                     mParamsAddComments.gravity=Gravity.START;
                     mAddComments.setLayoutParams(mParamsAddComments);
                     //and push it into his parent : mFrameLayoutButtons
                     mFrameLayoutButtons.addView(mAddComments);
         //----------Create a second Button for accessing mood's history
-                    mHistoryButton = new Button(getContext());
+                    mHistoryButton = new ImageButton(getContext());
                     mParamsHistoryButton = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-                    mHistoryButton.setBackground(getResources().getDrawable(R.drawable.ic_history_black));
-                    mHistoryButton.setWidth((int)getResources().getDimension(R.dimen.size_icone_width_history));
-                    mHistoryButton.setHeight((int)getResources().getDimension(R.dimen.size_icone_heigt_history));
+                    mHistoryButton.setBackground(null);
+                    mHistoryButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_history_black));
+                    mHistoryButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    mParamsHistoryButton.width=((int)getResources().getDimension(R.dimen.size_icone_width_history));
+                    mParamsHistoryButton.height=((int)getResources().getDimension(R.dimen.size_icone_heigt_history));
                     mParamsHistoryButton.gravity=Gravity.END;
                     mHistoryButton.setLayoutParams(mParamsHistoryButton);
                     //and push it into his parent : mFrameLayoutButtons

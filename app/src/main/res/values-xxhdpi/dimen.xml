@@ -3,8 +3,8 @@
     <!-- Images -->
     <dimen name="size_image_heigt">240dp</dimen>
     <dimen name="size_image_width">@dimen/size_image_heigt</dimen>
-    <dimen name="size_icone_heigt_add_com">50dp</dimen><!--ratio 1.25-->
-    <dimen name="size_icone_width_add_com">40dp</dimen>
-    <dimen name="size_icone_heigt_history">50dp</dimen><!--ratio 1.16-->
-    <dimen name="size_icone_width_history">58dp</dimen>
+    <dimen name="size_icone_heigt_add_com">75dp</dimen><!--ratio 1.25-->
+    <dimen name="size_icone_width_add_com">60dp</dimen>
+    <dimen name="size_icone_heigt_history">75dp</dimen><!--ratio 1.16-->
+    <dimen name="size_icone_width_history">87dp</dimen>
 </resources>
