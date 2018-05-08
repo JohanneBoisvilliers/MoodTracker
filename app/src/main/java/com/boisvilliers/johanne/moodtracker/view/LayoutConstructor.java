@@ -2,7 +2,6 @@ package com.boisvilliers.johanne.moodtracker.view;
 
 import android.content.Context;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -26,9 +25,7 @@ public abstract class LayoutConstructor extends ViewGroup{
     private ImageButton mHistoryButton;
     private FrameLayout.LayoutParams mParamsHistoryButton;
 
-    public LayoutConstructor(Context context) {
-        super(context);
-    }
+    public LayoutConstructor(Context context) { super(context); }
     //Method who create a FrameLayout containing an ImageView with all their parameters, just 2 parameters are customizable
     //by children : color background and image
     protected void LayoutCreator(int color, int draw) {
@@ -56,11 +53,12 @@ public abstract class LayoutConstructor extends ViewGroup{
                 //Get basics parameters for it
                 mParamsButtons = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
                 mParamsButtons.gravity = Gravity.BOTTOM;
-                mParamsButtons.setMargins(20,0,20,20);
+                mParamsButtons.bottomMargin=0;
                 //Set previous Frame.LayoutParams in mFrameLayoutButtons and set some other parameters
                 mFrameLayoutButtons.setLayoutParams(mParamsButtons);
         //----------Create a first button for a new comment with his parameters
                     mAddComments = new ImageButton(getContext());
+                    mAddComments.setId(R.id.Addcomments_button);
                     mParamsAddComments = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
                     mAddComments.setBackground(null);
                     mAddComments.setImageDrawable(getResources().getDrawable(R.drawable.ic_note_add_black));
@@ -81,6 +79,7 @@ public abstract class LayoutConstructor extends ViewGroup{
                     mParamsHistoryButton.height=((int)getResources().getDimension(R.dimen.size_icone_heigt_history));
                     mParamsHistoryButton.gravity=Gravity.END;
                     mHistoryButton.setLayoutParams(mParamsHistoryButton);
+                    mHistoryButton.setId(R.id.History_button);
                     //and push it into his parent : mFrameLayoutButtons
                     mFrameLayoutButtons.addView(mHistoryButton);
         //add This new FrameLinear into his parent : mFrameLayout
@@ -91,12 +90,12 @@ public abstract class LayoutConstructor extends ViewGroup{
         return this.mFrameLayout;
     }
 
+    public void setHistoryButtonParams() {
+
+    }
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int childCount = getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View v = getChildAt(i);
-            v.layout(l, t, r, b);
-        }
+
     }
 }
