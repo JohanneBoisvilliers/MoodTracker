@@ -23,18 +23,12 @@ public class GestureDetectorListener extends GestureDetector.SimpleOnGestureList
         float y1 = event1.getY();           //Get the start and end y coordinates of motion to calculate the lenght
         float y2 = event2.getY();           //between them and at the same time knowing if the gesture is up or
         float compareGestureSize = y1 - y2; //down. If the difference is negative, the movement is necessarily down
-        Boolean returnValue = false;        //otherwise it's an up motion (we're ignoring x coordinates so left and right movements)
+                                            //otherwise it's an up motion (we're ignoring x coordinates so left and right movements)
 
-        if(event1.ACTION_DOWN == 0&& compareGestureSize>=GESTURE_SIZE) {
-            gestureDirection = 'U';
-            returnValue = true;
-        }
+        if(event1.ACTION_DOWN == 0&& compareGestureSize>=GESTURE_SIZE) { gestureDirection = 'U'; }
 
-        if (compareGestureSize<0 && (compareGestureSize*-1)>=GESTURE_SIZE ) {
-            gestureDirection = 'D';
-            returnValue = true;
-        }
-        return returnValue;
+        if (compareGestureSize<0 && (compareGestureSize*-1)>=GESTURE_SIZE ) { gestureDirection = 'D'; }
+        return true;
     }
     //Getter for gestureDirection which onTouchEvent (in MainActivity) need to sliding views
     public static char getGestureDirection() {
