@@ -15,8 +15,7 @@ public class EditTextAddComments  extends ViewGroup{
 
     public EditTextAddComments(Context context){
         super(context);
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mDialogComments = inflater.inflate(R.layout.dialog_addcomments,null);
     }
 

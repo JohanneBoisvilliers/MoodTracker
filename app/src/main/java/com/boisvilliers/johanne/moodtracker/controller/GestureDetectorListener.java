@@ -1,4 +1,4 @@
-package com.boisvilliers.johanne.moodtracker.model;
+package com.boisvilliers.johanne.moodtracker.controller;
 
 import android.view.GestureDetector;
 import android.view.MotionEvent;
