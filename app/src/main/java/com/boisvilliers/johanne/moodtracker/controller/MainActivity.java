@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected int[] mListColor,mListSmiley;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-    protected ArrayList<Integer> mThingsToSave;
+    private ArrayList<Integer> mThingsToSave;
     private ArrayList<Integer> mThingsToLoad;
     public static final String KEY_VIEW = "KEY_VIEW";
     Gson gson;
@@ -73,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
         mDetector = new GestureDetectorCompat(this,new GestureDetectorListener());
         mSmiley=new ImageView(this);
         mMainHierarchy=new LayoutConstructor(this);
-        mThingsToSave = new ArrayList<Integer>();
-        mThingsToLoad = new ArrayList<Integer>();
+
+
         //initialize differents views
         mCurrentFrameLayout =findViewById(R.id.mainActivity_global);
         mCurrentFrameLayout =mMainHierarchy.getViewsHierarchy();
@@ -86,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
         mListSmiley=new ConstructList().getSmileyArray();
         //try to get view saved in SharedPreferences
         loadSharedPreferences();
-        Log.d("TAG","truc a save = " + json);
+        //add listener on buttons on bottom of view. One for open a dialog window to let user add a comment about his day
+        //and another to open the history of last week mood
         addListenerOnAddCommentsButton();
         addListenerOnHistoryButton();
     }
@@ -95,10 +95,6 @@ public class MainActivity extends AppCompatActivity {
         mCurrentFrameLayout.setBackgroundColor(getResources().getColor(mListColor[index]));
         mSmiley.setImageResource(mListSmiley[index]);
         setContentView(mCurrentFrameLayout);
-        mThingsToSave.clear();
-        mThingsToSave.add(getResources().getColor(mListColor[mCurrentView]));
-        mThingsToSave.add(mListSmiley[mCurrentView]);
-        mThingsToSave.add(mCurrentView);
     }
     //add a listener on buttons to know when user clicked on them and to know what to do
     public void addListenerOnHistoryButton() {
@@ -137,9 +133,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     //save the color and the smiley which are corresponding to the day's mood
     public void saveSharedPreferences(){
         gson = new Gson();
+        mThingsToSave = new ArrayList<Integer>();
+        mThingsToSave.add(getResources().getColor(mListColor[mCurrentView]));
+        mThingsToSave.add(mListSmiley[mCurrentView]);
+        mThingsToSave.add(mCurrentView);
         json = gson.toJson(mThingsToSave);
         editor = preferences.edit();
         editor.putString(KEY_VIEW,json).apply();
@@ -149,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         gson = new Gson();
         Type type = new TypeToken<ArrayList<Integer>>(){}.getType();
         json=preferences.getString(KEY_VIEW,"");
+        mThingsToLoad = new ArrayList<Integer>();
         if(json.isEmpty())
             //Add the background color and the smiley by default if there is nothing in the shared preferences
             refreshView(mCurrentView);
@@ -162,9 +164,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onRestart() {
+        loadSharedPreferences();
+        super.onRestart();
+    }
+
+    @Override
+    protected void onStop() {
+        saveSharedPreferences();
+        super.onStop();
+    }
+
+    @Override
     protected void onDestroy() {
         saveSharedPreferences();
-        Log.d("TAG","truc a save = " + json);
         super.onDestroy();
     }
 }

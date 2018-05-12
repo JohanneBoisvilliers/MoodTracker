@@ -8,26 +8,25 @@ import android.view.ViewGroup;
 import com.boisvilliers.johanne.moodtracker.R;
 
 /**
- * Created by Johanne Boisvilliers on 02/05/2018.
+ * Created by Johanne Boisvilliers on 12/05/2018.
  */
-public class LayoutConstructor extends ViewGroup{
+public class HistoryConstructor extends ViewGroup {
 
-    private View mViewsHierarchy;
-    //Constructor which create view's hierarchy thank to inflate on activity_main.xml.
-    public LayoutConstructor(Context context) {
+    private View mHistoryHierarchy;
+
+    public HistoryConstructor(Context context) {
         super(context);
-        //Create all the view's hierarchy.
+        //Create all the History's hierarchy.
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mViewsHierarchy = inflater.inflate(R.layout.activity_main,null);
+        mHistoryHierarchy = inflater.inflate(R.layout.activity_history,null);
     }
 
-    public View getViewsHierarchy() {
-        return mViewsHierarchy;
+    public View getHistoryHierarchy() {
+        return mHistoryHierarchy;
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
     }
-
 }
