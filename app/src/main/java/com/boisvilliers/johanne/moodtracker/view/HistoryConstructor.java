@@ -21,9 +21,7 @@ public class HistoryConstructor extends ViewGroup {
         mHistoryHierarchy = inflater.inflate(R.layout.activity_history,null);
     }
 
-    public View getHistoryHierarchy() {
-        return mHistoryHierarchy;
-    }
+    public View getHistoryHierarchy() { return mHistoryHierarchy; }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {

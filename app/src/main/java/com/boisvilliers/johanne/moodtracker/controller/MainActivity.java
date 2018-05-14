@@ -22,6 +22,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,9 +36,11 @@ public class MainActivity extends AppCompatActivity {
     protected int[] mListColor,mListSmiley;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-    private ArrayList<Integer> mThingsToSave;
-    private ArrayList<Integer> mThingsToLoad;
+    private Calendar mDDay,mRefDay;
+    private ArrayList<Integer> mThingsToSave, mThingsToLoad;
     public static final String KEY_VIEW = "KEY_VIEW";
+    public static final String KEY_REF_DATE = "KEY_REF_DATE";
+    private boolean mCompareDate = false;
     Gson gson;
     String json;
 
@@ -72,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
         mDetector = new GestureDetectorCompat(this,new GestureDetectorListener());
         mSmiley=new ImageView(this);
         mMainHierarchy=new LayoutConstructor(this);
-
-
         //initialize differents views
         mCurrentFrameLayout =findViewById(R.id.mainActivity_global);
         mCurrentFrameLayout =mMainHierarchy.getViewsHierarchy();
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         //get color's list and smiley's list
         mListColor=new ConstructList().getColorArray();
         mListSmiley=new ConstructList().getSmileyArray();
+        checkDate();
         //try to get view saved in SharedPreferences
         loadSharedPreferences();
         //add listener on buttons on bottom of view. One for open a dialog window to let user add a comment about his day
@@ -103,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent historyActivity = new Intent(MainActivity.this, HistoryActivity.class);
+                historyActivity.putIntegerArrayListExtra("MOOD_TO_SAVE",mThingsToSave);
                 startActivity(historyActivity);
             }
         });
@@ -134,6 +137,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void checkDate(){
+        mDDay = Calendar.getInstance();
+        int mDDayWeek =mDDay.get(Calendar.WEEK_OF_YEAR);
+        int mDDayDayWeek=mDDay.get(Calendar.DAY_OF_WEEK);
+
+        if(preferences.contains(KEY_REF_DATE)){
+            mRefDay=Calendar.getInstance();
+            mRefDay.setTimeInMillis(preferences.getLong(KEY_REF_DATE,0L));
+            int mRefWeek =mRefDay.get(Calendar.WEEK_OF_YEAR);
+            int mRefDayWeek=mRefDay.get(Calendar.DAY_OF_WEEK);
+            if (mRefDayWeek==mDDayDayWeek && mRefWeek==mDDayWeek )
+                mCompareDate=true;
+            else
+                mCompareDate=false;
+            mRefDay=mDDay;
+        }
+
+        else{ mRefDay=mDDay; }
+    }
+
     //save the color and the smiley which are corresponding to the day's mood
     public void saveSharedPreferences(){
         gson = new Gson();
@@ -144,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
         json = gson.toJson(mThingsToSave);
         editor = preferences.edit();
         editor.putString(KEY_VIEW,json).apply();
+        editor.putLong(KEY_REF_DATE,mRefDay.getTimeInMillis()).apply();
     }
     //load the last color and smiley in SharedPreferences
     public void loadSharedPreferences(){
@@ -154,6 +178,9 @@ public class MainActivity extends AppCompatActivity {
         if(json.isEmpty())
             //Add the background color and the smiley by default if there is nothing in the shared preferences
             refreshView(mCurrentView);
+        else if(mCompareDate==false){
+            refreshView(mCurrentView);
+        }
         else {
             mThingsToLoad = gson.fromJson(json, type);
             mCurrentView= mThingsToLoad.get(2);
