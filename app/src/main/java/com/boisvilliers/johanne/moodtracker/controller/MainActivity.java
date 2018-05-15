@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 
 import com.boisvilliers.johanne.moodtracker.R;
 import com.boisvilliers.johanne.moodtracker.model.ConstructList;
+import com.boisvilliers.johanne.moodtracker.model.HistoryElements;
 import com.boisvilliers.johanne.moodtracker.view.EditTextAddComments;
 import com.boisvilliers.johanne.moodtracker.view.LayoutConstructor;
 import com.google.gson.Gson;
@@ -33,16 +35,17 @@ public class MainActivity extends AppCompatActivity {
     protected int mCurrentView = 3;
     private Context mContext = this;
     private LayoutConstructor mMainHierarchy;
-    protected int[] mListColor,mListSmiley;
+    private int[] mListColor,mListSmiley;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     private Calendar mDDay,mRefDay;
     private ArrayList<Integer> mThingsToSave, mThingsToLoad;
+    private ArrayList<HistoryElements>mThingsToTransfer;
     public static final String KEY_VIEW = "KEY_VIEW";
     public static final String KEY_REF_DATE = "KEY_REF_DATE";
+    public static final String KEY_TRANSFER = "KEY_TRANSFER";
     private boolean mCompareDate = false;
-    Gson gson;
-    String json;
+    private Gson gson;
 
     /*OnTouchEvent get the gestureDirection in GestureDetectorListener and then add or remove 1 to mCurrentView
      which contain the index of the current smiley and background color.
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         mDetector = new GestureDetectorCompat(this,new GestureDetectorListener());
         mSmiley=new ImageView(this);
         mMainHierarchy=new LayoutConstructor(this);
+        mThingsToTransfer = new ArrayList<>();
         //initialize differents views
         mCurrentFrameLayout =findViewById(R.id.mainActivity_global);
         mCurrentFrameLayout =mMainHierarchy.getViewsHierarchy();
@@ -84,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         //get color's list and smiley's list
         mListColor=new ConstructList().getColorArray();
         mListSmiley=new ConstructList().getSmileyArray();
+        //check the actual date ton compare it to the previous app's opening date
         checkDate();
         //try to get view saved in SharedPreferences
         loadSharedPreferences();
@@ -105,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent historyActivity = new Intent(MainActivity.this, HistoryActivity.class);
-                historyActivity.putIntegerArrayListExtra("MOOD_TO_SAVE",mThingsToSave);
+                historyActivity.putExtra("MOOD_TO_SAVE",mThingsToTransfer);
                 startActivity(historyActivity);
             }
         });
@@ -116,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Set an alert dialog which contain the EditText to let a commentary
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
                 final EditTextAddComments commentaries = new EditTextAddComments(mContext);
                 builder.setView(commentaries.getDialogComments());
                 builder.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
@@ -160,21 +165,29 @@ public class MainActivity extends AppCompatActivity {
     //save the color and the smiley which are corresponding to the day's mood
     public void saveSharedPreferences(){
         gson = new Gson();
-        mThingsToSave = new ArrayList<Integer>();
+        mThingsToSave = new ArrayList<>();
         mThingsToSave.add(getResources().getColor(mListColor[mCurrentView]));
         mThingsToSave.add(mListSmiley[mCurrentView]);
         mThingsToSave.add(mCurrentView);
-        json = gson.toJson(mThingsToSave);
+        mThingsToTransfer.add(new HistoryElements(getResources().getColor(mListColor[mCurrentView]),mCurrentView));
+        String json = gson.toJson(mThingsToSave);
+        String jsonBis = gson.toJson(mThingsToTransfer);
         editor = preferences.edit();
         editor.putString(KEY_VIEW,json).apply();
+        editor.putString(KEY_TRANSFER,jsonBis).apply();
         editor.putLong(KEY_REF_DATE,mRefDay.getTimeInMillis()).apply();
     }
     //load the last color and smiley in SharedPreferences
     public void loadSharedPreferences(){
         gson = new Gson();
         Type type = new TypeToken<ArrayList<Integer>>(){}.getType();
-        json=preferences.getString(KEY_VIEW,"");
-        mThingsToLoad = new ArrayList<Integer>();
+        Type typeBis = new TypeToken<ArrayList<HistoryElements>>(){}.getType();
+        String json = preferences.getString(KEY_VIEW,"");
+        String jsonBis = preferences.getString(KEY_TRANSFER,"");
+        mThingsToLoad = new ArrayList<>();
+        mThingsToTransfer = gson.fromJson(jsonBis,typeBis);
+        if(mThingsToTransfer!=null)
+        Log.d("SIZE_LIST",mThingsToTransfer.toString());
         if(json.isEmpty())
             //Add the background color and the smiley by default if there is nothing in the shared preferences
             refreshView(mCurrentView);
