@@ -20,7 +20,7 @@
         <FrameLayout
             android:id="@+id/sept_jours"
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="5"
             android:layout_height="match_parent">
 
             <TextView
@@ -29,13 +29,14 @@
                 android:layout_marginLeft="5dp"
                 android:text="Il y a une semaine"/>
 
-            <!--    <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_marginRight="20dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_comment_black_48px" /> -->
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:visibility="invisible"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_comment_black_48px" />
 
         </FrameLayout>
 
@@ -52,7 +53,7 @@
         <FrameLayout
             android:id="@+id/six_jours"
             android:layout_width="0dp"
-            android:layout_weight="4"
+            android:layout_weight="5"
             android:layout_height="match_parent">
 
             <TextView
@@ -61,13 +62,14 @@
                 android:layout_marginLeft="5dp"
                 android:text="Il y a 6 jours"/>
 
-            <!--    <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_marginRight="20dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_comment_black_48px" /> -->
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:visibility="invisible"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_comment_black_48px" />
 
         </FrameLayout>
 
@@ -83,7 +85,7 @@
         <FrameLayout
             android:id="@+id/cinq_jours"
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="5"
             android:layout_height="match_parent">
 
             <TextView
@@ -92,13 +94,14 @@
                 android:layout_marginLeft="5dp"
                 android:text="Il y a 5 jours"/>
 
-            <!--    <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_marginRight="20dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_comment_black_48px" /> -->
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:visibility="invisible"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_comment_black_48px" />
 
         </FrameLayout>
 
@@ -116,7 +119,7 @@
         <FrameLayout
             android:id="@+id/quatre_jours"
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="5"
             android:layout_height="match_parent">
 
             <TextView
@@ -125,14 +128,14 @@
                 android:layout_marginLeft="5dp"
                 android:text="Il y a 4 jours"/>
 
-            <!--    <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_marginRight="20dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_comment_black_48px" /> -->
-
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:visibility="invisible"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_comment_black_48px" />
         </FrameLayout>
 
 
@@ -149,7 +152,7 @@
         <FrameLayout
             android:id="@+id/trois_jours"
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="5"
             android:layout_height="match_parent">
 
             <TextView
@@ -158,14 +161,14 @@
                 android:layout_marginLeft="5dp"
                 android:text="Il y a 3 jours"/>
 
-            <!--    <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|right"
-                    android:layout_marginRight="20dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_comment_black_48px" /> -->
-
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:visibility="invisible"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_comment_black_48px" />
         </FrameLayout>
 
 
@@ -181,8 +184,7 @@
 
         <FrameLayout
             android:id="@+id/avant_hier_bg"
-            android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
             <TextView
@@ -195,6 +197,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
+                android:visibility="invisible"
+
                 android:layout_marginRight="20dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_comment_black_48px" />
@@ -215,7 +219,7 @@
         <FrameLayout
             android:id="@+id/hier_bg"
             android:layout_width="0dp"
-            android:layout_weight="3"
+            android:layout_weight="5"
             android:layout_height="match_parent">
 
             <TextView
@@ -228,6 +232,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
+                android:visibility="invisible"
                 android:layout_marginRight="20dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_comment_black_48px" />

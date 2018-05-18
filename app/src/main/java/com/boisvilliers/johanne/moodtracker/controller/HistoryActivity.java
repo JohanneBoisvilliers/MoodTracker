@@ -2,22 +2,28 @@ package com.boisvilliers.johanne.moodtracker.controller;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.boisvilliers.johanne.moodtracker.R;
 import com.boisvilliers.johanne.moodtracker.model.HistoryElements;
 import com.boisvilliers.johanne.moodtracker.view.HistoryConstructor;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
+import static com.boisvilliers.johanne.moodtracker.controller.MainActivity.BUNDLE_MOODTOSAVE;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    private View mHistoryCurrentView;
+    private ViewGroup mHistoryCurrentView;
     private FrameLayout mHierBg, mAvantHier, mTroisJours, mQuatreJours, mCinqJours, mSixJours, mSeptJours;
     private HistoryConstructor mHistoryConstructor;
     private ArrayList<HistoryElements> mMoodToPutInHistory;
-    private View[] mMoodList;
+    private FrameLayout[] mMoodList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +33,18 @@ public class HistoryActivity extends AppCompatActivity {
         mHistoryCurrentView = findViewById(R.id.history_main_view);
         mHistoryCurrentView = mHistoryConstructor.getHistoryHierarchy();
         mMoodToPutInHistory = new ArrayList<>();
-        mMoodToPutInHistory =(ArrayList<HistoryElements>)getIntent().getSerializableExtra("MOOD_TO_SAVE");
+        mMoodToPutInHistory = (ArrayList<HistoryElements>) getIntent().getSerializableExtra(BUNDLE_MOODTOSAVE);
+        ArrayList<HistoryElements> invertedList = new ArrayList<>(mMoodToPutInHistory);
+        Collections.reverse(invertedList);
+        mMoodToPutInHistory=invertedList;
+        Log.d("NBRE_ELEMENT_DANS_LIST", mMoodToPutInHistory.toString());
 
         fillMoodList();
-        mMoodList[0].setBackgroundColor(mMoodToPutInHistory.get(0).getColor());
-        mMoodList[1].setBackgroundColor(mMoodToPutInHistory.get(1).getColor());
-
-        setContentView(mHistoryCurrentView);
+        settingMoodList();
 
     }
 
-    public void fillMoodList(){
+    public void fillMoodList() {
         mHierBg = mHistoryCurrentView.findViewById(R.id.hier_bg);
         mAvantHier = mHistoryCurrentView.findViewById(R.id.avant_hier_bg);
         mTroisJours = mHistoryCurrentView.findViewById(R.id.trois_jours);
@@ -46,6 +53,23 @@ public class HistoryActivity extends AppCompatActivity {
         mSixJours = mHistoryCurrentView.findViewById(R.id.six_jours);
         mSeptJours = mHistoryCurrentView.findViewById(R.id.sept_jours);
 
-        mMoodList = new View[]{mHierBg,mAvantHier,mTroisJours,mQuatreJours,mCinqJours,mSixJours,mSeptJours};
+        mMoodList = new FrameLayout[]{mHierBg, mAvantHier, mTroisJours, mQuatreJours, mCinqJours, mSixJours, mSeptJours};
+    }
+
+    public void settingMoodList() {
+        if (mMoodToPutInHistory.size() < 1) {
+            ViewGroup clearView = findViewById(R.id.history_main_view);
+            clearView.removeAllViews();
+            TextView alertMessageEmpty = new TextView(this);
+            alertMessageEmpty.setText("History is empty, please come back to see tomorrow");
+            clearView.addView(alertMessageEmpty);
+            setContentView(clearView);
+        } else {
+            for (int i = 0; i < mMoodToPutInHistory.size(); i++) {
+                mMoodList[i].setLayoutParams(new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT, mMoodToPutInHistory.get(i).getIndexForWeight()));
+                mMoodList[i].setBackgroundColor(mMoodToPutInHistory.get(i).getColor());
+            }
+            setContentView(mHistoryCurrentView);
+        }
     }
 }

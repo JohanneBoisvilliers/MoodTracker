@@ -2,7 +2,6 @@ package com.boisvilliers.johanne.moodtracker.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.boisvilliers.johanne.moodtracker.R;
@@ -12,16 +11,16 @@ import com.boisvilliers.johanne.moodtracker.R;
  */
 public class HistoryConstructor extends ViewGroup {
 
-    private View mHistoryHierarchy;
+    private ViewGroup mHistoryHierarchy;
 
     public HistoryConstructor(Context context) {
         super(context);
         //Create all the History's hierarchy.
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mHistoryHierarchy = inflater.inflate(R.layout.activity_history,null);
+        mHistoryHierarchy = (ViewGroup) inflater.inflate(R.layout.activity_history,null);
     }
 
-    public View getHistoryHierarchy() { return mHistoryHierarchy; }
+    public ViewGroup getHistoryHierarchy() { return mHistoryHierarchy; }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {

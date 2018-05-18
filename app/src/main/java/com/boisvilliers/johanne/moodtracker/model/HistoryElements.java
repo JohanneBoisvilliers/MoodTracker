@@ -11,7 +11,7 @@ public class HistoryElements implements Serializable {
 
     public HistoryElements(int color, int indexForWeight) {
         this.mColor = color;
-        this.mIndexForWeight = indexForWeight;
+        this.mIndexForWeight = indexForWeight+1;
     }
 
     public int getColor() {
