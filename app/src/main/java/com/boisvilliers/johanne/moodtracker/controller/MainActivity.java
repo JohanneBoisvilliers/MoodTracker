@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -24,7 +25,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -159,7 +159,10 @@ public class MainActivity extends AppCompatActivity {
             mRefDay.setTimeInMillis(preferences.getLong(KEY_REF_DATE, 0L));
             int mRefWeek = mRefDay.get(Calendar.WEEK_OF_YEAR);
             int mRefDayWeek = mRefDay.get(Calendar.DAY_OF_WEEK);
-            mDaysBetween = daysBetween(mRefDay.getTime(),mDDay.getTime());
+            mDaysBetween = daysBetween(mRefDay,mDDay);
+            Log.d("JOUR", "\n REFDAY ="+mRefDay +"\n Dday="+mDDay );
+
+            Log.d("NOMBRE DE JOUR", "nombre de jour:"+mDaysBetween+"/n REFDAY ="+(mRefDay.getTimeInMillis()/(1000 * 60 * 60 * 24)) +"/n Dday="+(mDDay.getTimeInMillis()/(1000 * 60 * 60 * 24))  );
             if (mRefDayWeek == mDDayDayWeek && mRefWeek == mDDayWeek)
                 mCompareDate = true;
             else
@@ -169,8 +172,8 @@ public class MainActivity extends AppCompatActivity {
             mRefDay = mDDay;
         }
     }
-    public int daysBetween(Date d1, Date d2){
-        return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
+    public int daysBetween(Calendar d1, Calendar d2){
+        return (int)((d2.getTimeInMillis() - d1.getTimeInMillis())/(1000 * 60*60 * 24));
     }
 
     //save the color and the smiley which are corresponding to the day's mood
@@ -213,12 +216,7 @@ public class MainActivity extends AppCompatActivity {
             //Add the background color and the smiley by default if there is nothing in the shared preferences
             refreshView(mCurrentView);
         else if (!mCompareDate) {
-            if(mThingsToTransfer.size()<7)
-                mThingsToTransfer.add(mTempMood);
-            else{
-                mThingsToTransfer.remove(0);
-                mThingsToTransfer.add(mTempMood);
-            }
+            appIsForgotMultipleDays();
             refreshView(mCurrentView);
         } else {
             mThingsToLoad = gson.fromJson(jsonSave, typeSave);
@@ -226,6 +224,23 @@ public class MainActivity extends AppCompatActivity {
             mCurrentFrameLayout.setBackgroundColor(getResources().getColor(mListColor[mCurrentView]));
             mSmiley.setImageResource(mListSmiley[mCurrentView]);
             setContentView(mCurrentFrameLayout);
+        }
+    }
+
+    public void appIsForgotMultipleDays(){
+        if(mThingsToTransfer.size()<7 && mDaysBetween==1) {
+            mThingsToTransfer.add(mTempMood);
+        }else{
+            for(int i = 1; i <= mDaysBetween ; i++){
+                if (mThingsToTransfer.size()<7){
+                    mThingsToTransfer.add(mTempMood);
+                    mTempMood = new HistoryElements(getResources().getColor(mListColor[mCurrentView]),mCurrentView);
+                }else{
+                    mThingsToTransfer.remove(0);
+                    mThingsToTransfer.add(mTempMood);
+                    mTempMood = new HistoryElements(getResources().getColor(mListColor[mCurrentView]),mCurrentView);
+                }
+            }
         }
     }
 
