@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.boisvilliers.johanne.moodtracker.R;
 
 /**
- * Created by Johanne Boisvilliers on 08/05/2018.
+ * Create the alertDialog to let user add a comment about his day
  */
 public class EditTextAddComments  extends ViewGroup{
     private View mDialogComments;
@@ -16,7 +16,7 @@ public class EditTextAddComments  extends ViewGroup{
     public EditTextAddComments(Context context){
         super(context);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mDialogComments = inflater.inflate(R.layout.dialog_addcomments,null);
+        mDialogComments =  inflater.inflate(R.layout.dialog_addcomments,null);
     }
 
     public View getDialogComments() {

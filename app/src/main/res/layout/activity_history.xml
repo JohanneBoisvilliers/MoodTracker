@@ -30,6 +30,7 @@
                 android:text="Il y a une semaine"/>
 
             <ImageButton
+                android:id="@+id/btn_une_semaine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
@@ -63,6 +64,7 @@
                 android:text="Il y a 6 jours"/>
 
             <ImageButton
+                android:id="@+id/btn_six_jour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
@@ -95,6 +97,7 @@
                 android:text="Il y a 5 jours"/>
 
             <ImageButton
+                android:id="@+id/btn_cinq_jour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
@@ -129,6 +132,7 @@
                 android:text="Il y a 4 jours"/>
 
             <ImageButton
+                android:id="@+id/btn_quatre_jour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
@@ -162,6 +166,7 @@
                 android:text="Il y a 3 jours"/>
 
             <ImageButton
+                android:id="@+id/btn_trois_jour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
@@ -194,11 +199,11 @@
                 android:text="Avant-hier"/>
 
             <ImageButton
+                android:id="@+id/btn_avant_hier"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
                 android:visibility="invisible"
-
                 android:layout_marginRight="20dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_comment_black_48px" />
@@ -229,6 +234,7 @@
                 android:text="Hier"/>
 
             <ImageButton
+                android:id="@+id/btn_hier"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
