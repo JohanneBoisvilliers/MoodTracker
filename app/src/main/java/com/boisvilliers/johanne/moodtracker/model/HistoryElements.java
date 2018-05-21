@@ -7,12 +7,12 @@ import java.io.Serializable;
  */
 public class HistoryElements implements Serializable {
     private int mColor;
-    private int mIndexForWeight;
+    private int mIndex;
     private String mComment;
 
-    public HistoryElements(int color, int indexForWeight, String comment) {
+    public HistoryElements(int color, int pIndex, String comment) {
         this.mColor = color;
-        this.mIndexForWeight = indexForWeight+1;//mood list index, whose this index come from, begin at 0 and finish at 4 while future weight is between 1 to 5 so we add 1 to the index
+        this.mIndex = pIndex;//mood list index in HistoryActivity(whose this index come from) begin at 0 and finish at 4 while future weight is between 1 to 5 so we add 1 to the index when we're calling it
         this.mComment = comment;
     }
 
@@ -20,8 +20,8 @@ public class HistoryElements implements Serializable {
         return mColor;
     }
 
-    public int getIndexForWeight() {
-        return mIndexForWeight;
+    public int getIndex() {
+        return mIndex;
     }
 
     public String getComment() { return mComment; }

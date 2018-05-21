@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d4d4d4"
+    android:background="@android:color/white"
     android:orientation="vertical"
     android:weightSum="7"
     tools:context=".controller.HistoryActivity"

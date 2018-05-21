@@ -8,9 +8,6 @@ import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -33,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private View mCurrentFrameLayout;
     private ImageView mSmiley;
-    private ImageButton mAddComments, mHistory;
+    private ImageButton mAddComments, mHistory, mPieChart;
     private GestureDetectorCompat mDetector;
     private int mCurrentView = 3;
     private Context mContext = this;
@@ -92,11 +89,13 @@ public class MainActivity extends AppCompatActivity {
         mSmiley = mCurrentFrameLayout.findViewById(R.id.image_smiley);
         mAddComments = mCurrentFrameLayout.findViewById(R.id.Addcomments_button);
         mHistory = mCurrentFrameLayout.findViewById(R.id.History_button);
+        mPieChart = mCurrentFrameLayout.findViewById(R.id.piechart_button);
         //get color's list and smiley's list
         mListColor = new ConstructList().getColorArray();
         mListSmiley = new ConstructList().getSmileyArray();
         checkDate();
         loadSharedPreferences();
+        activeAndListenerOnPieChart();
         addListenerOnAddCommentsButton();
         addListenerOnHistoryButton();
     }
@@ -123,9 +122,6 @@ public class MainActivity extends AppCompatActivity {
 
     //add a listener on button to open a dialog window to let user add a comment about his day
     public void addListenerOnAddCommentsButton() {
-        //ViewGroup commentMaster = findViewById(R.layout.dialog_addcomments);
-
-        //catchUserText(commentToAdd);
         //Listener and actions for Addcomments button
         mAddComments.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 mFinalComment = commentToAdd.getText().toString();
-                                Log.d("MESSAGE A SAVE", mFinalComment);
                             }
                         })
                         .create()
@@ -154,19 +149,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void catchUserText (EditText editText){
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) { }
-        });
+    public void activeAndListenerOnPieChart(){
+        if(mSharedPreferences.contains(KEY_TRANSFER)){
+            mPieChart.setVisibility(View.VISIBLE);
+            mPieChart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent pieChartIntent = new Intent(MainActivity.this, PieChartActivity.class);
+                    pieChartIntent.putExtra(BUNDLE_MOODTOSAVE, mThingsToTransfer);
+                    startActivity(pieChartIntent);
+                }
+            });
+        }
     }
 
     //method to check the actual date and compare it to the last date when the app was opened
@@ -275,7 +269,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         checkDate();
         loadSharedPreferences();
-        System.out.println("MainActivity :: onResume()");
         super.onResume();
     }
 
@@ -283,7 +276,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         checkDate();
         saveSharedPreferences();
-        System.out.println("MainActivity :: onPause()");
         super.onPause();
     }
 }

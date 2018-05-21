@@ -84,7 +84,7 @@ public class HistoryActivity extends AppCompatActivity {
             setContentView(clearView);
         } else { //else for every elements into the list, we take color and index and setting the mood history
             for (int i = 0; i < mMoodToPutInHistory.size(); i++) {
-                mMoodList[i].setLayoutParams(new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT, mMoodToPutInHistory.get(i).getIndexForWeight()));
+                mMoodList[i].setLayoutParams(new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT, mMoodToPutInHistory.get(i).getIndex()+1));
                 mMoodList[i].setBackgroundColor(mMoodToPutInHistory.get(i).getColor());
                 final int current = i;
                 if(mMoodToPutInHistory.get(i).getComment()!= null){ //if user had left a comment this day, we set the comment icon visible
@@ -92,7 +92,7 @@ public class HistoryActivity extends AppCompatActivity {
                     mButtonList[i].setOnClickListener(new View.OnClickListener() { //if user press the icon, a toast message appear and show the message left this day
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(mContext,mMoodToPutInHistory.get(current).getComment(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(mContext,mMoodToPutInHistory.get(current).getComment(),Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

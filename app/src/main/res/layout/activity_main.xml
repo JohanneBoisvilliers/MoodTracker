@@ -23,18 +23,27 @@
 
         <ImageButton
             android:id="@+id/Addcomments_button"
-            android:layout_width="@dimen/size_icone_width_add_com"
-            android:layout_height="@dimen/size_icone_heigt_add_com"
+            android:layout_width="60dp"
+            android:layout_height="75dp"
             android:src="@drawable/ic_note_add_black"
             android:layout_gravity="start"
             android:background="@android:color/transparent"/>
 
         <ImageButton
             android:id="@+id/History_button"
-            android:layout_width="@dimen/size_icone_width_add_com"
-            android:layout_height="@dimen/size_icone_heigt_add_com"
+            android:layout_width="60dp"
+            android:layout_height="75dp"
             android:layout_gravity="end"
             android:src="@drawable/ic_history_black"
+            android:background="@android:color/transparent"/>
+
+        <ImageButton
+            android:id="@+id/piechart_button"
+            android:layout_width="60dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_piechart"
+            android:visibility="invisible"
             android:background="@android:color/transparent"/>
     </FrameLayout>
 
