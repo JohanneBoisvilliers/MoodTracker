@@ -1,8 +1,10 @@
 package com.boisvilliers.johanne.moodtracker.controller;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -18,7 +20,7 @@ import com.boisvilliers.johanne.moodtracker.view.HistoryConstructor;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static com.boisvilliers.johanne.moodtracker.controller.MainActivity.BUNDLE_MOODTOSAVE;
+import static com.boisvilliers.johanne.moodtracker.controller.MainActivity.BUNDLE_MOOD_TO_SAVE;
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -39,7 +41,7 @@ public class HistoryActivity extends AppCompatActivity {
         mHistoryCurrentView = findViewById(R.id.history_main_view);
         mHistoryCurrentView = mHistoryConstructor.getHistoryHierarchy();
         mMoodToPutInHistory = new ArrayList<>();
-        mMoodToPutInHistory = (ArrayList<HistoryElements>) getIntent().getSerializableExtra(BUNDLE_MOODTOSAVE);
+        mMoodToPutInHistory = (ArrayList<HistoryElements>) getIntent().getSerializableExtra(BUNDLE_MOOD_TO_SAVE);
         ArrayList<HistoryElements> invertedList = new ArrayList<>(mMoodToPutInHistory);
         Collections.reverse(invertedList);//we reverse the list to have the yesterday's mood in bottom of list and so in bottom of history
         mMoodToPutInHistory=invertedList;
@@ -84,7 +86,11 @@ public class HistoryActivity extends AppCompatActivity {
             setContentView(clearView);
         } else { //else for every elements into the list, we take color and index and setting the mood history
             for (int i = 0; i < mMoodToPutInHistory.size(); i++) {
-                mMoodList[i].setLayoutParams(new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT, mMoodToPutInHistory.get(i).getIndex()+1));
+                Display display = getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                int width = (size.x)/5;
+                mMoodList[i].setLayoutParams(new LinearLayout.LayoutParams((mMoodToPutInHistory.get(i).getIndex()+1)*width, FrameLayout.LayoutParams.MATCH_PARENT));
                 mMoodList[i].setBackgroundColor(mMoodToPutInHistory.get(i).getColor());
                 final int current = i;
                 if(mMoodToPutInHistory.get(i).getComment()!= null){ //if user had left a comment this day, we set the comment icon visible

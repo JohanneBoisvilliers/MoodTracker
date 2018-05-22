@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String KEY_VIEW = "KEY_VIEW";
     public static final String KEY_REF_DATE = "KEY_REF_DATE";
     public static final String KEY_TRANSFER = "KEY_TRANSFER";
-    public static final String BUNDLE_MOODTOSAVE = "BUNDLE_MOODTOSAVE";
+    public static final String BUNDLE_MOOD_TO_SAVE = "BUNDLE_MOOD_TO_SAVE";
     public static final String KEY_TEMP_MOOD = "KEY_TEMP_MOOD";
 
     /*OnTouchEvent get the gestureDirection in GestureDetectorListener and then add or remove 1 to mCurrentView
@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         char gestureDirection = GestureDetectorListener.getGestureDirection();
         if (gestureDirection == 'U') {
             if (mCurrentView < 4) {
-                int viewToReduce = mCurrentView;
                 mCurrentView += 1;
                 refreshView(mCurrentView);
             }
@@ -114,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent historyActivity = new Intent(MainActivity.this, HistoryActivity.class);
-                historyActivity.putExtra(BUNDLE_MOODTOSAVE, mThingsToTransfer);
+                historyActivity.putExtra(BUNDLE_MOOD_TO_SAVE, mThingsToTransfer);
                 startActivity(historyActivity);
             }
         });
@@ -156,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent pieChartIntent = new Intent(MainActivity.this, PieChartActivity.class);
-                    pieChartIntent.putExtra(BUNDLE_MOODTOSAVE, mThingsToTransfer);
+                    pieChartIntent.putExtra(BUNDLE_MOOD_TO_SAVE, mThingsToTransfer);
                     startActivity(pieChartIntent);
                 }
             });

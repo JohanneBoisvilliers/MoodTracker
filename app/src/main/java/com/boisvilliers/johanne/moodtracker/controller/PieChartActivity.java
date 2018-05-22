@@ -14,7 +14,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.boisvilliers.johanne.moodtracker.controller.MainActivity.BUNDLE_MOODTOSAVE;
+import static com.boisvilliers.johanne.moodtracker.controller.MainActivity.BUNDLE_MOOD_TO_SAVE;
 
 public class PieChartActivity extends AppCompatActivity {
 
@@ -30,7 +30,7 @@ public class PieChartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pie_chart);
 
         mPieChart = findViewById(R.id.chart);
-        mMoodToPutInChart = (ArrayList<HistoryElements>) getIntent().getSerializableExtra(BUNDLE_MOODTOSAVE);
+        mMoodToPutInChart = (ArrayList<HistoryElements>) getIntent().getSerializableExtra(BUNDLE_MOOD_TO_SAVE);
 
         mEntries = new ArrayList<>();
 

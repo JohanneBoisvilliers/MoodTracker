@@ -1,252 +1,234 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical"
-    android:weightSum="7"
-    tools:context=".controller.HistoryActivity"
-    android:id="@+id/history_main_view">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="5"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:weightSum="7"
+        tools:context=".controller.HistoryActivity"
+        android:id="@+id/history_main_view">
 
-        <FrameLayout
-            android:id="@+id/sept_jours"
-            android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Il y a une semaine"/>
-
-            <ImageButton
-                android:id="@+id/btn_une_semaine"
+            <FrameLayout
+                android:id="@+id/sept_jours"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|right"
-                android:visibility="invisible"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_comment_black_48px" />
+                android:layout_height="match_parent">
 
-        </FrameLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/text_une_semaine"/>
+
+                <ImageButton
+                    android:id="@+id/btn_une_semaine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:visibility="invisible"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_comment_black_48px" />
+
+            </FrameLayout>
 
 
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/six_jours"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/text_six_jours"/>
+
+                <ImageButton
+                    android:id="@+id/btn_six_jour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:visibility="invisible"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_comment_black_48px" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/cinq_jours"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/text_cinq_jours"/>
+
+                <ImageButton
+                    android:id="@+id/btn_cinq_jour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:visibility="invisible"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_comment_black_48px" />
+
+            </FrameLayout>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/quatre_jours"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/text_quatre_jours"/>
+
+                <ImageButton
+                    android:id="@+id/btn_quatre_jour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:visibility="invisible"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_comment_black_48px" />
+            </FrameLayout>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/trois_jours"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/text_trois_jours"/>
+
+                <ImageButton
+                    android:id="@+id/btn_trois_jour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:visibility="invisible"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_comment_black_48px" />
+            </FrameLayout>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/avant_hier_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/text_avant_hier"/>
+
+                <ImageButton
+                    android:id="@+id/btn_avant_hier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:visibility="invisible"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_comment_black_48px" />
+
+            </FrameLayout>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/hier_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/text_hier"/>
+
+                <ImageButton
+                    android:id="@+id/btn_hier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:visibility="invisible"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_comment_black_48px" />
+
+            </FrameLayout>
+
+
+
+        </LinearLayout>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="5"
-        android:orientation="horizontal">
-
-        <FrameLayout
-            android:id="@+id/six_jours"
-            android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Il y a 6 jours"/>
-
-            <ImageButton
-                android:id="@+id/btn_six_jour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|right"
-                android:visibility="invisible"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_comment_black_48px" />
-
-        </FrameLayout>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="5"
-        android:orientation="horizontal"
-        android:gravity="fill">
-
-        <FrameLayout
-            android:id="@+id/cinq_jours"
-            android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Il y a 5 jours"/>
-
-            <ImageButton
-                android:id="@+id/btn_cinq_jour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|right"
-                android:visibility="invisible"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_comment_black_48px" />
-
-        </FrameLayout>
-
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="5"
-        android:orientation="horizontal"
-        android:gravity="fill">
-
-        <FrameLayout
-            android:id="@+id/quatre_jours"
-            android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Il y a 4 jours"/>
-
-            <ImageButton
-                android:id="@+id/btn_quatre_jour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|right"
-                android:visibility="invisible"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_comment_black_48px" />
-        </FrameLayout>
-
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="5"
-        android:orientation="horizontal"
-        android:gravity="fill">
-
-        <FrameLayout
-            android:id="@+id/trois_jours"
-            android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Il y a 3 jours"/>
-
-            <ImageButton
-                android:id="@+id/btn_trois_jour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|right"
-                android:visibility="invisible"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_comment_black_48px" />
-        </FrameLayout>
-
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="5"
-        android:orientation="horizontal"
-        android:gravity="fill">
-
-        <FrameLayout
-            android:id="@+id/avant_hier_bg"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Avant-hier"/>
-
-            <ImageButton
-                android:id="@+id/btn_avant_hier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|right"
-                android:visibility="invisible"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_comment_black_48px" />
-
-        </FrameLayout>
-
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="5"
-        android:orientation="horizontal"
-        android:gravity="fill">
-
-        <FrameLayout
-            android:id="@+id/hier_bg"
-            android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Hier"/>
-
-            <ImageButton
-                android:id="@+id/btn_hier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|right"
-                android:visibility="invisible"
-                android:layout_marginRight="20dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_comment_black_48px" />
-
-        </FrameLayout>
-
-
-
-    </LinearLayout>
-
-</LinearLayout>
