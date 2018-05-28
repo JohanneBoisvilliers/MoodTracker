@@ -29,31 +29,26 @@ public class PieChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pie_chart);
 
-        mPieChart = findViewById(R.id.chart);
-        mMoodToPutInChart = (ArrayList<HistoryElements>) getIntent().getSerializableExtra(BUNDLE_MOOD_TO_SAVE);
+        mPieChart = findViewById(R.id.chart); // Connect the xml file to setting the pie chart
+        mMoodToPutInChart = (ArrayList<HistoryElements>) getIntent().getSerializableExtra(BUNDLE_MOOD_TO_SAVE); // Get the moods of the last week thanks to intent
 
         mEntries = new ArrayList<>();
 
         sortedListMood();
         setPieChart();
         paramPieChart();
-
-        mPieChart.getDescription().setText("Statistic of moods for the last week");
-        mPieChart.getDescription().setTextSize(13f);
-        mPieChart.setDrawEntryLabels(false);
-        mPieChart.invalidate(); // refresh
     }
-
+    // Set the base of pie chart
     public void setPieChart() {
-        String[] labelList = new String[]{"Sad","Disappointed","Normal","Happy","Super Happy"};
-        ArrayList<Integer> colors = new ArrayList<>();
+        String[] labelList = new String[]{"Sad","Disappointed","Normal","Happy","Super Happy"}; // Labels for legend
+        ArrayList<Integer> colors = new ArrayList<>(); //colors for pies
 
-        PieDataSet set = new PieDataSet(mEntries, "");
-        set.setSliceSpace(2.f);
+        PieDataSet set = new PieDataSet(mEntries, ""); // list which form pie chart
+        set.setSliceSpace(2.f); // space between pies
 
-        PieData data = new PieData(set);
+        PieData data = new PieData(set); // chart container
         mPieChart.setData(data);
-
+        // fill the pie chart with the elements in list of moods
         for (int i = 0; i < mMoodToPutInChart.size(); i++) {
             if(!colors.contains(mMoodToPutInChart.get(i).getColor())) {
                 mEntries.add(new PieEntry(mMoodToInt[mMoodToPutInChart.get(i).getIndex()], labelList[mMoodToPutInChart.get(i).getIndex()]));
@@ -63,11 +58,15 @@ public class PieChartActivity extends AppCompatActivity {
         }
     }
     public void paramPieChart(){
-        Legend legend = mPieChart.getLegend();
+        Legend legend = mPieChart.getLegend(); // get the legend to set them
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.PIECHART_CENTER);
+        legend.setPosition(Legend.LegendPosition.PIECHART_CENTER); // put the legend in the center of pie chart
+        mPieChart.getDescription().setText("Statistic of moods for the last week"); // Set the description in the bottom of the screen
+        mPieChart.getDescription().setTextSize(13f); // size of text of description
+        mPieChart.setDrawEntryLabels(false); // deactivate the entry labels on pies
+        mPieChart.invalidate(); // refresh the view
     }
-
+    // Method to know how many times there is this or that mood and save the result in an array
     public void sortedListMood(){
         for (int i = 0; i < mMoodToPutInChart.size(); i++) {
             switch (mMoodToPutInChart.get(i).getIndex())

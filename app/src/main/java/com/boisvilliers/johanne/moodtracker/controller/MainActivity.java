@@ -34,12 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private GestureDetectorCompat mDetector;
     private int mCurrentView = 3;
     private Context mContext = this;
-    private LayoutConstructor mMainHierarchy;
     private int[] mListColor, mListSmiley;
     private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor mEditor;
     private Calendar mDDay, mRefDay;
-    private ArrayList<Integer> mThingsToSave, mThingsToLoad;
     private ArrayList<HistoryElements> mThingsToTransfer;
     private HistoryElements mTempMood;
     private boolean mCompareDate = true;
@@ -79,16 +76,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mSharedPreferences = getPreferences(MODE_PRIVATE);
-        mDetector = new GestureDetectorCompat(this, new GestureDetectorListener());
-        mSmiley = new ImageView(this);
-        mMainHierarchy = new LayoutConstructor(this);
+        mDetector = new GestureDetectorCompat(this, new GestureDetectorListener()); // Create a listener to know when user touch the screen and what to do
+        mSmiley = new ImageView(this); // Create an ImageView which will contain the smiley
+        LayoutConstructor mainHierarchy = new LayoutConstructor(this); // Inflate activity_main.xml
         //initialize differents views
-        mCurrentFrameLayout = findViewById(R.id.mainActivity_global);
-        mCurrentFrameLayout = mMainHierarchy.getViewsHierarchy();
-        mSmiley = mCurrentFrameLayout.findViewById(R.id.image_smiley);
-        mAddComments = mCurrentFrameLayout.findViewById(R.id.Addcomments_button);
-        mHistory = mCurrentFrameLayout.findViewById(R.id.History_button);
-        mPieChart = mCurrentFrameLayout.findViewById(R.id.piechart_button);
+        mCurrentFrameLayout = findViewById(R.id.mainActivity_global); // Connect the main Layout of activity_main.xml
+        mCurrentFrameLayout = mainHierarchy.getViewsHierarchy(); // Setting the entire view with the activity_main inflated
+        mSmiley = mCurrentFrameLayout.findViewById(R.id.image_smiley); // Connect the ImageView which contain the smiley
+        mAddComments = mCurrentFrameLayout.findViewById(R.id.Addcomments_button); // Connect the button to add comments
+        mHistory = mCurrentFrameLayout.findViewById(R.id.History_button); // Connect the button to see the history
+        mPieChart = mCurrentFrameLayout.findViewById(R.id.piechart_button); // Connect the Pie chart
         //get color's list and smiley's list
         mListColor = new ConstructList().getColorArray();
         mListSmiley = new ConstructList().getSmileyArray();
@@ -164,22 +161,22 @@ public class MainActivity extends AppCompatActivity {
 
     //method to check the actual date and compare it to the last date when the app was opened
     public void checkDate() {
-        mDDay = Calendar.getInstance();
-        int mDDayWeek = mDDay.get(Calendar.WEEK_OF_YEAR);
-        int mDDayDayWeek = mDDay.get(Calendar.DAY_OF_WEEK);
+        mDDay = Calendar.getInstance(); // Catch the actual date
+        int mDDayWeek = mDDay.get(Calendar.WEEK_OF_YEAR); // filter the num of the actual week (between 0 and 51)
+        int mDDayDayWeek = mDDay.get(Calendar.DAY_OF_WEEK); // filter the day of week
 
-        if (mSharedPreferences.contains(KEY_REF_DATE)) {
+        if (mSharedPreferences.contains(KEY_REF_DATE)) { // Check if there is a date saved in sharedpreferences to compare it to the actual date
             mRefDay = Calendar.getInstance();
             mRefDay.setTimeInMillis(mSharedPreferences.getLong(KEY_REF_DATE, 0L));
             int mRefWeek = mRefDay.get(Calendar.WEEK_OF_YEAR);
             int mRefDayWeek = mRefDay.get(Calendar.DAY_OF_WEEK);
             mDaysBetween = daysBetween(mRefDay, mDDay);
             if (mRefDayWeek == mDDayDayWeek && mRefWeek == mDDayWeek)
-                mCompareDate = true;
+                mCompareDate = true; // mCompareDate keep in memory if actual date and reference date are the same (true=same, false=not the same day)
             else
                 mCompareDate = false;
             mRefDay = mDDay;
-        } else {
+        } else { // if there's not yet a date saved in SharedPreferences, we set the actual date as reference
             mRefDay = mDDay;
         }
     }
@@ -195,19 +192,19 @@ public class MainActivity extends AppCompatActivity {
                - mRefDay which is the last date when app was open */
     public void saveSharedPreferences() {
         gson = new Gson();
-        mThingsToSave = new ArrayList<>();
-        mThingsToSave.add(getResources().getColor(mListColor[mCurrentView]));
-        mThingsToSave.add(mListSmiley[mCurrentView]);
-        mThingsToSave.add(mCurrentView);
+        ArrayList<Integer> thingsToSave = new ArrayList<>();
+        thingsToSave.add(getResources().getColor(mListColor[mCurrentView]));
+        thingsToSave.add(mListSmiley[mCurrentView]);
+        thingsToSave.add(mCurrentView);
         mTempMood = new HistoryElements(getResources().getColor(mListColor[mCurrentView]), mCurrentView,mFinalComment);
-        String jsonSave = gson.toJson(mThingsToSave);
+        String jsonSave = gson.toJson(thingsToSave);
         String jsonTransfer = gson.toJson(mThingsToTransfer);
         String jsonTemp = gson.toJson(mTempMood);
-        mEditor = mSharedPreferences.edit();
-        mEditor.putString(KEY_VIEW, jsonSave).apply();
-        mEditor.putString(KEY_TRANSFER, jsonTransfer).apply();
-        mEditor.putString(KEY_TEMP_MOOD, jsonTemp).apply();
-        mEditor.putLong(KEY_REF_DATE, mRefDay.getTimeInMillis()).apply();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString(KEY_VIEW, jsonSave).apply(); // Save the smiley , the background and the index of last mood of the current day
+        editor.putString(KEY_TRANSFER, jsonTransfer).apply(); // Save the list of the last days moods
+        editor.putString(KEY_TEMP_MOOD, jsonTemp).apply(); // Save mTempMood which contain the mood to add in history the day after
+        editor.putLong(KEY_REF_DATE, mRefDay.getTimeInMillis()).apply(); // Save the reference day
     }
 
     /* load :  - the last color and smiley in SharedPreferences
@@ -219,9 +216,9 @@ public class MainActivity extends AppCompatActivity {
         Type typeSave = new TypeToken<ArrayList<Integer>>() {}.getType();
         Type typeTransfer = new TypeToken<ArrayList<HistoryElements>>() {}.getType();
         Type typeTemp = new TypeToken<HistoryElements>() {}.getType();
-        String jsonSave = mSharedPreferences.getString(KEY_VIEW, "");
-        String jsonTransfer = mSharedPreferences.getString(KEY_TRANSFER, "");
-        String jsonTemp = mSharedPreferences.getString(KEY_TEMP_MOOD, "");
+        String jsonSave = mSharedPreferences.getString(KEY_VIEW, ""); // Load the smiley , the background and the index of last mood of the current day
+        String jsonTransfer = mSharedPreferences.getString(KEY_TRANSFER, ""); // Load the list of the last days moods
+        String jsonTemp = mSharedPreferences.getString(KEY_TEMP_MOOD, ""); // Load mTempMood which contain the mood to add in history the day after
         if (mSharedPreferences.contains(KEY_TRANSFER))//if there is a list of mood saved we load it, else we initialize the mood list
             mThingsToTransfer = gson.fromJson(jsonTransfer, typeTransfer);
         else
@@ -230,15 +227,15 @@ public class MainActivity extends AppCompatActivity {
             mTempMood = gson.fromJson(jsonTemp, typeTemp);
         else
             mTempMood = new HistoryElements(getResources().getColor(mListColor[mCurrentView]), mCurrentView, mFinalComment);
-        mThingsToLoad = new ArrayList<>();
+        ArrayList<Integer> thingsToLoad = new ArrayList<>();
         if (jsonSave.isEmpty())//Add the background color and the smiley by default if there is nothing in the shared mSharedPreferences(at the first opening)
             refreshView(mCurrentView);
         else if (!mCompareDate) {//if we are in a new day, app add the last days mood into history and show the default view
             addMoodIntoHistory();
             refreshView(mCurrentView);
         } else {//if we are in the same day, app is loading the last mood we saved and show it
-            mThingsToLoad = gson.fromJson(jsonSave, typeSave);
-            mCurrentView = mThingsToLoad.get(2);
+            thingsToLoad = gson.fromJson(jsonSave, typeSave);
+            mCurrentView = thingsToLoad.get(2);
             mCurrentFrameLayout.setBackgroundColor(getResources().getColor(mListColor[mCurrentView]));
             mSmiley.setImageResource(mListSmiley[mCurrentView]);
             setContentView(mCurrentFrameLayout);

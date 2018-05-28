@@ -37,11 +37,11 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        mHistoryConstructor = new HistoryConstructor(this);
-        mHistoryCurrentView = findViewById(R.id.history_main_view);
-        mHistoryCurrentView = mHistoryConstructor.getHistoryHierarchy();
+        mHistoryConstructor = new HistoryConstructor(this); // Inflate the activity_history.xml
+        mHistoryCurrentView = findViewById(R.id.history_main_view); // Connect the Main Layout
+        mHistoryCurrentView = mHistoryConstructor.getHistoryHierarchy(); // Setting the Main layout with activity_history.xml inflated
         mMoodToPutInHistory = new ArrayList<>();
-        mMoodToPutInHistory = (ArrayList<HistoryElements>) getIntent().getSerializableExtra(BUNDLE_MOOD_TO_SAVE);
+        mMoodToPutInHistory = (ArrayList<HistoryElements>) getIntent().getSerializableExtra(BUNDLE_MOOD_TO_SAVE); // get the list of moods of last week thanks to intent
         ArrayList<HistoryElements> invertedList = new ArrayList<>(mMoodToPutInHistory);
         Collections.reverse(invertedList);//we reverse the list to have the yesterday's mood in bottom of list and so in bottom of history
         mMoodToPutInHistory=invertedList;
@@ -86,7 +86,7 @@ public class HistoryActivity extends AppCompatActivity {
             setContentView(clearView);
         } else { //else for every elements into the list, we take color and index and setting the mood history
             for (int i = 0; i < mMoodToPutInHistory.size(); i++) {
-                Display display = getWindowManager().getDefaultDisplay();
+                Display display = getWindowManager().getDefaultDisplay();//Catch the screen to set moods width in history
                 Point size = new Point();
                 display.getSize(size);
                 int width = (size.x)/5;
